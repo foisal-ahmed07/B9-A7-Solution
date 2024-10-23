@@ -28,6 +28,13 @@ const SideBar = ({ recipeBar }) => {
                 <td>{recipe.recipe_name} </td>
                 <td>{recipe.preparing_time} minuts</td>
                 <td>{recipe.calories} calories</td>
+                <td>
+                  <button 
+                  onClick={() => }
+                  className="bg-green-400 font-bold rounded-full px-3 py-2">
+                    Preparing
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

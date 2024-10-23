@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 
-const Recipes = () => {
+const Recipes = ({addToCooking}) => {
   const [recipes, SetRecipes] = useState([]);
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const Recipes = () => {
       .then((res) => res.json())
       .then((data) => SetRecipes(data));
   });
-  console.log(recipes);
+
 
   return (
     <div className="md:w-2/3">
@@ -56,7 +56,9 @@ const Recipes = () => {
               </div>
 
               <div className="card-actions ">
-                <button className="btn bg-green-400 px-4 py-2 rounded-full text-lg">
+                <button
+                onClick={() => addToCooking(recipe)}
+                 className="btn bg-green-400 px-4 py-2 rounded-full text-lg">
                   Want To Cook
                 </button>
               </div>

@@ -9,7 +9,16 @@ import { useState } from "react";
 function App() {
   const [recipeBar, setRecipeBar] = useState([]);
 
-  const [] = useState([])
+  const [preparedRecipe, setParedRecipe] = useState([]);
+
+  const [totalTime, setTotalTime] = useState(0);
+
+  const [totalCalories, setTotalCalories] = useState(0);
+
+  const calculateTotal = (time, calories) => {
+    setTotalTime(totalTime + time);
+    setTotalCalories(totalCalories + calories);
+  };
 
   const addToCooking = (recipe) => {
     const isExist = recipeBar.find(
@@ -17,12 +26,18 @@ function App() {
     );
     if (!isExist) {
       setRecipeBar([...recipeBar, recipe]);
-    }
-    else{
-      alert("Already Exist")
+    } else {
+      alert("Already Exist");
     }
   };
-  console.log(recipeBar);
+
+  const handleRemove = (id) => {
+    const deletedRecipe = recipeBar.find((recipe) => recipe.recipe_id === id);
+    // remove form recipe bar
+    const updaterBar = recipeBar.filter((recipe) => recipe.recipe_id !== id);
+    setRecipeBar(updaterBar);
+    setParedRecipe([...preparedRecipe, deletedRecipe]);
+  };
 
   return (
     <>
@@ -42,7 +57,14 @@ function App() {
         <Recipes addToCooking={addToCooking}></Recipes>
 
         {/* sidebar section */}
-        <SideBar recipeBar={recipeBar}></SideBar>
+        <SideBar
+          calculateTotal={calculateTotal}
+          preparedRecipe={preparedRecipe}
+          handleRemove={handleRemove}
+          recipeBar={recipeBar}
+          totalTime={totalTime}
+          totalCalories={totalCalories}
+        ></SideBar>
       </section>
     </>
   );
